@@ -2,6 +2,7 @@
 package pl.edu.agh.siatka.figures_ui;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.util.Random;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -13,27 +14,47 @@ public class Test {
 		Cylinder cylinder = new Cylinder(2, 5);
 		Ball ball = new Ball(3);
 		Bar bar = new Bar(8);
+		double steinerRadius = 2;
 		cylinder.getValues();
 		ball.getValues();
 		bar.getValues();
 
-		int figureChoice = 0;
 		ArrayList<MaterialPoint> figures = new ArrayList<>();
 		InputStreamReader reader = new InputStreamReader(System.in);
 		BufferedReader in = new BufferedReader(reader);
-		System.out.println("Choose the type of figure:");
-		System.out.println("1. Cylinder");
-		System.out.println("2. Ball");
-		System.out.println("3. Bar");
-		System.out.println("4. Exit");
-		figureChoice = in.read();
-		switch(figureChoice){
-			case 1: figures.add(cylinderMenu()); break;
-			case 2: figures.add(ballMenu()); break;
-			case 3: figures.add(barMenu()); break;
-			case 4:; break;
-			default: System.out.println("Invalid entry");
-		}
+		String figureChoice = null;
+		int figureChoiceValue;
+		do {
+			System.out.println("Choose the type of figure:");
+			System.out.println("1. Cylinder");
+			System.out.println("2. Ball");
+			System.out.println("3. Bar");
+			System.out.println("4. Exit");
+
+			try {
+				figureChoice = in.readLine();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			figureChoiceValue = Integer.parseInt(figureChoice);
+			switch (figureChoiceValue) {
+				case 1:
+					figures.add(cylinderMenu());
+					break;
+				case 2:
+					figures.add(ballMenu());
+					break;
+				case 3:
+					figures.add(barMenu());
+					break;
+				case 4:
+					;
+					break;
+				default:
+					System.out.println("Invalid entry");
+			}
+		}while(figureChoiceValue != 4);
+		for(int i = 0; i < figures.size(); i++)  printValues(figures.get(i), steinerRadius);
 
 	}
 
@@ -49,59 +70,88 @@ public class Test {
 		System.out.flush();
 	}
 
-	/*public static ArrayList<MaterialPoint> mainMenu(){
-		int figureChoice = 0;
-		ArrayList<MaterialPoint> figures = new ArrayList<>();
+	public static Cylinder cylinderMenu(){
 		InputStreamReader reader = new InputStreamReader(System.in);
 		BufferedReader in = new BufferedReader(reader);
-		System.out.println("Choose the type of figure:");
-		System.out.println("1. Cylinder");
-		System.out.println("2. Ball");
-		System.out.println("3. Bar");
-		System.out.println("4. Exit");
-		figureChoice = in.read();
-		switch(figureChoice){
-			case 1: figures.add(cylinderMenu()); break;
-			case 2: figures.add(ballMenu()); break;
-			case 3: figures.add(barMenu()); break;
-			case 4:; break;
-			default: System.out.println("Invalid entry");
-		}
-		return figures;*/
-	}
 
-	public static Cylinder cylinderMenu(){
 		System.out.println("Enter cylinder mass");
-		String mass = BufferedReader.readLine();
+		String mass = null;
+		try {
+			mass = in.readLine();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		double massValue = Util.round(Double.parseDouble(mass), 2 );
 		System.out.println("Enter cylinder radius");
-		String radius = BufferedReader.readLine();
+		String radius = null;
+		try {
+			radius = in.readLine();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		double radiusValue = Util.round(Double.parseDouble(radius), 2 );
 		System.out.println("Enter cylinder height");
-		String height = BufferedReader.readLine();
+		String height = null;
+		try {
+			height = in.readLine();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		double heightValue = Util.round(Double.parseDouble(height), 2 );
+		Cylinder cylinder = new Cylinder(radiusValue,heightValue);
+		cylinder.setMass(massValue);
 
-		return new Cylinder(radiusValue,heightValue);
+		return cylinder;
 	}
 
 	public static Ball ballMenu(){
+		InputStreamReader reader = new InputStreamReader(System.in);
+		BufferedReader in = new BufferedReader(reader);
+
 		System.out.println("Enter ball mass");
-		String mass = BufferedReader.readLine();
+		String mass = null;
+		try {
+			mass = in.readLine();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		double massValue = Util.round(Double.parseDouble(mass), 2 );
 		System.out.println("Enter ball radius");
-		String radius = BufferedReader.readLine();
+		String radius = null;
+		try {
+			radius = in.readLine();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		double radiusValue = Util.round(Double.parseDouble(radius), 2 );
-
-		return new Ball(radiusValue);
+		Ball ball = new Ball(radiusValue);
+		ball.setMass(massValue);
+		return ball;
 	}
 
 	public static Bar barMenu(){
+		InputStreamReader reader = new InputStreamReader(System.in);
+		BufferedReader in = new BufferedReader(reader);
+
 		System.out.println("Enter bar mass");
-		String mass = BufferedReader.readLine();
+		String mass = null;
+		try {
+			mass = in.readLine();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		double massValue = Util.round(Double.parseDouble(mass), 2 );
 		System.out.println("Enter bar radius");
-		String length = BufferedReader.readLine();
+		String length = null;
+		try {
+			length = in.readLine();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		double lengthValue = Util.round(Double.parseDouble(length), 2 );
-		return new Bar(lengthValue);
+		Bar bar = new Bar(lengthValue);
+		bar.setMass(massValue);
+
+		return bar;
 	}
 }
