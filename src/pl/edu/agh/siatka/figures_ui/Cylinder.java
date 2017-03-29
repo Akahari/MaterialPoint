@@ -9,21 +9,20 @@ public class Cylinder extends MaterialPoint {
     private double radius;
     private double height;
 
-
-    public Cylinder(){
+    public Cylinder(){                                              //konstruktor domyślny
         super(1);
         this.radius = 1;
         this.height = 1;
     }
 
-    public Cylinder(double radius, double height){
+    public Cylinder(double radius, double height){                              //konstruktor z parametrami
         super(1);
         this.radius = radius;
         this.height = height;
     }
 
 
-    public void getRadius(){ System.out.println("Cylinder radius is: " + this.radius); }
+    public void getRadius(){ System.out.println("Cylinder radius is: " + this.radius); }        //akcesory i settery
 
     public void getHeight(){ System.out.println("Cylinder height is: " + this.height); }
 
@@ -37,7 +36,7 @@ public class Cylinder extends MaterialPoint {
         System.out.println("Cylinder");
     }
 
-    public void getValues(){
+    public void getValues(){                                                                        //wypisanie wartości pól obiektu
         this.info();
         System.out.println("Cylinder mass is: " + this.getMass());
         this.getHeight();

@@ -7,7 +7,7 @@ public class MaterialPoint {
 
     protected double mass;
     private double radius = 0;
-
+	private double steinerRadius;
 	
 	public MaterialPoint(){
 		this.mass = 1;
@@ -27,6 +27,9 @@ public class MaterialPoint {
 		}
 	}
 
+	public void setSteinerRadius(double steinerRadius){ this.steinerRadius = steinerRadius; }
+
+	public double getSteinerRadius(){ return steinerRadius;}
 
 	public double calculateInertia(){
 		return Util.round( mass *  Math.pow(radius,2), DECIMAL_PLACES) ;

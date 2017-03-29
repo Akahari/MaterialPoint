@@ -5,9 +5,7 @@ package pl.edu.agh.siatka.figures_ui;
  */
 public class Ball extends MaterialPoint {
     private static final int DECIMAL_PLACES = 2;
-
     private double radius;
-
 
     public Ball(){
         super(1);
